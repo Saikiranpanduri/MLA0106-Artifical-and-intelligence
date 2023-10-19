@@ -1,0 +1,36 @@
+% Define diet recommendations for some diseases
+diet_recommendation(heart_disease, 'Low-sodium diet and reduced saturated fats. Include fruits and vegetables.').
+diet_recommendation(diabetes, 'Balanced diet with controlled carbohydrate intake.').
+diet_recommendation(hypertension, 'Low-sodium diet. Limit caffeine and alcohol.').
+diet_recommendation(celiac_disease, 'Gluten-free diet. Avoid wheat, barley, rye.').
+diet_recommendation(osteoporosis, 'Calcium-rich diet with dairy products, leafy greens, and vitamin D supplements.').
+diet_recommendation(allergies, 'Avoid allergenic foods. Consult an allergist.').
+diet_recommendation(healthy, 'Balanced diet with a variety of foods. Regular exercise.').
+
+% Define symptoms for some diseases
+symptoms(heart_disease, 'Chest pain, shortness of breath, fatigue.').
+symptoms(diabetes, 'Frequent urination, excessive thirst, fatigue.').
+symptoms(hypertension, 'High blood pressure, headaches, fatigue.').
+symptoms(celiac_disease, 'Digestive problems, fatigue, skin rashes.').
+symptoms(osteoporosis, 'Bone fractures, loss of height, back pain.').
+symptoms(allergies, 'Skin rash, itching, runny nose, sneezing.').
+symptoms(healthy, 'No specific symptoms. Good health.').
+
+% Define a predicate to suggest a diet based on a disease
+suggest_diet(Disease) :-
+    diet_recommendation(Disease, Diet),
+    write('Diet Recommendation for '), write(Disease), write(':'), nl,
+    write(Diet), nl.
+
+% Define a predicate to display symptoms of a disease
+display_symptoms(Disease) :-
+    symptoms(Disease, Symptom),
+    write('Symptoms of '), write(Disease), write(':'), nl,
+    write(Symptom), nl.
+
+% Example queries
+% To suggest a diet for heart disease
+?- suggest_diet(heart_disease).
+
+% To display symptoms of diabetes
+?- display_symptoms(diabetes).
