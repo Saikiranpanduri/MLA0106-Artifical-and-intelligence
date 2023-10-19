@@ -1,0 +1,24 @@
+% Define the facts about birds and whether they can fly.
+can_fly(pigeon).
+can_fly(sparrow).
+can_fly(eagle).
+cannot_fly(penguin).
+cannot_fly(ostrich).
+cannot_fly(kiwi).
+
+% Define a rule to determine if a bird can fly or not.
+can_bird_fly(Bird) :-
+    can_fly(Bird),
+    write(Bird), write(' can fly!'), nl.
+can_bird_fly(Bird) :-
+    cannot_fly(Bird),
+    write(Bird), write(' cannot fly.'), nl.
+can_bird_fly(Bird) :-
+    not(can_fly(Bird)),
+    not(cannot_fly(Bird)),
+    write('I do not have information about whether '), write(Bird), write(' can fly or not.'), nl.
+
+% Example queries
+?- can_bird_fly(pigeon).
+?- can_bird_fly(penguin).
+?- can_bird_fly(owl).
