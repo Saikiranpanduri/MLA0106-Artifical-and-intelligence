@@ -1,0 +1,41 @@
+% Define the initial state of the room
+initial_state(at(monkey, middle, on_ground), at(banana, ceiling, on_hook), at(chair, right, on_ground)).
+
+% Define the actions the monkey can take
+% The monkey can move left, right, up, down, or pick up the banana.
+action(move(left), 'Move left.').
+action(move(right), 'Move right.').
+action(move(up), 'Climb up the chair.').
+action(move(down), 'Climb down from the chair.').
+action(pickup, 'Pick up the banana.').
+
+% Define the state transitions
+% When the monkey is at the chair, it can climb up.
+can_reach(at(monkey, X, on_ground), at(chair, X, on_ground), move(up)).
+
+% When the monkey is at the chair, it can pick up the banana.
+can_reach(at(monkey, X, on_ground), at(banana, X, on_hook), pickup).
+
+% When the monkey is not at the chair, it can move to the chair.
+can_reach(at(monkey, X, on_ground), at(chair, X, on_ground), move(X)).
+
+% When the monkey is on the chair, it can climb down.
+can_reach(at(monkey, X, on_chair), at(chair, X, on_ground), move(down)).
+
+% Define the goal state
+goal_state(at(monkey, middle, on_ground), at(banana, _, _), _).
+
+% Define a predicate to find a sequence of actions to reach the goal
+plan(Start, Goal, Plan) :-
+    plan(Start, Goal, [], Plan).
+
+plan(Start, Start, Plan, Plan).
+
+plan(State, Goal, PartialPlan, Plan) :-
+    can_reach(State, NextState, Action),
+    not(member(NextState, PartialPlan)),
+    plan(NextState, Goal, [NextState|PartialPlan], Plan),
+    write(Action), nl.
+
+% Example query to solve the monkey and banana problem
+?- initial_state(Start), goal_state(Goal, _, _), plan(Start, Goal, Plan).
